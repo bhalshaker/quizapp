@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  streamlit:
+    image: python:3.11-slim
+    volumes:
+      - ../app:/workspace/app:Z
+    ports:
+      - "8501:8501"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+      - MONGO_DB=quizapp
+    working_dir: /workspace/app
+    command: >
+      sh -c "pip install -r requirements.txt &&
+             streamlit run main.py --server.runOnSave true"
+
+  mongo:
+    image: docker.io/library/mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  mongo-express:
+    image: docker.io/library/mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin
+
+volumes:
+  mongo-data:

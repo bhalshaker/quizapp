@@ -1,0 +1,4 @@
+cookie:
+  expiry_days: 7
+  key: "super_secret_key"
+  name: "quizapp_auth"
