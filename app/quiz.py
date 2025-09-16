@@ -91,7 +91,7 @@ class QuizApp:
         self.start_question=1
         self.end_question=self.num_questions
         self.start_question = st.sidebar.number_input("From Question", value=1,min_value=1,max_value=self.end_question)
-        self.end_question = st.sidebar.number_input("To Question", value=self.num_questions,min_value=self.start_question,max_value=self.num_questions)
+        self.end_question = st.sidebar.number_input("To Question", value=self.num_questions,min_value=self.start_question,max_value=len(self.questions))
         st.sidebar.write(f"Range selected: {self.start_question} to {self.end_question}")
         self.available_questions=self.end_question-self.start_question+1
 
